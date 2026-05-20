@@ -90,21 +90,20 @@
 
     title.className = `overlay-title ${state.winner}`;
 
-    if (state.winner === 'red') {
-      icon.textContent  = '&#x1F534;';
+    const losingTeam = state.winner === 'red' ? 'blue' : 'red';
+    if (state.winReason === 'assassin') {
+      icon.innerHTML    = '&#128128;';
+      title.textContent = `${state.winner.toUpperCase()} WINS!`;
+      msg.textContent   = `The ${losingTeam} team revealed the assassin!`;
+    } else if (state.winner === 'red') {
+      icon.innerHTML    = '&#x1F534;';
       title.textContent = 'RED WINS!';
       msg.textContent   = 'The red team found all their agents. Well played!';
-    } else if (state.winner === 'blue') {
-      icon.textContent  = '&#x1F535;';
+    } else {
+      icon.innerHTML    = '&#x1F535;';
       title.textContent = 'BLUE WINS!';
       msg.textContent   = 'The blue team found all their agents. Well played!';
-    } else {
-      icon.textContent  = '&#128128;';
-      title.textContent = 'ASSASSIN!';
-      msg.textContent   = 'A team revealed the assassin — game over!';
     }
-    // Decode HTML entity for icon
-    icon.innerHTML = icon.textContent;
   }
 
   // ── Actions ───────────────────────────────────────────────

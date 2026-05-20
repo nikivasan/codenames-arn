@@ -61,7 +61,8 @@ function createGameState(boardNum) {
     redFound: 0,
     blueFound: 0,
     gameOver: false,
-    winner: null
+    winner: null,
+    winReason: null
   };
 }
 
@@ -129,17 +130,20 @@ io.on('connection', (socket) => {
 
     if (role === 'assassin') {
       state.gameOver = true;
+      state.winReason = 'assassin';
       state.winner = state.currentTeam === 'red' ? 'blue' : 'red';
     } else if (role === 'red') {
       state.redFound++;
       if (state.redFound >= state.redTotal) {
         state.gameOver = true;
+        state.winReason = 'agents';
         state.winner = 'red';
       }
     } else if (role === 'blue') {
       state.blueFound++;
       if (state.blueFound >= state.blueTotal) {
         state.gameOver = true;
+        state.winReason = 'agents';
         state.winner = 'blue';
       }
     }
