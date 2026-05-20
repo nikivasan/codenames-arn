@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Codenames — ARN Edition</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+</head>
+<body class="game-page">
+
+  <!-- Header -->
+  <header class="game-header">
+    <a href="index.html" class="back-link">&#8592; Boards</a>
+    <div class="header-title">
+      <h1>CODENAMES</h1>
+      <span class="header-subtitle">ARN Edition</span>
+    </div>
+    <div class="board-badge" id="boardBadge">Board 1</div>
+  </header>
+
+  <!-- Scoreboard -->
+  <div class="scoreboard">
+    <div class="score-block score-red">
+      <div class="score-team">RED</div>
+      <div class="score-nums">
+        <span id="redFound">0</span>/<span id="redTotal">0</span>
+      </div>
+    </div>
+    <div class="turn-indicator" id="turnIndicator">
+      <div class="turn-dot" id="turnDot"></div>
+      <div class="turn-label" id="turnLabel">Loading...</div>
+    </div>
+    <div class="score-block score-blue">
+      <div class="score-team">BLUE</div>
+      <div class="score-nums">
+        <span id="blueFound">0</span>/<span id="blueTotal">0</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Game Board -->
+  <div class="board-grid" id="boardGrid">
+    <!-- Cards injected by JS -->
+  </div>
+
+  <!-- Controls -->
+  <div class="controls">
+    <button class="btn btn-spymaster" id="spymasterBtn" onclick="toggleSpymaster()">
+      <span class="spy-icon-sm">&#128373;</span> Spymaster Mode
+    </button>
+    <button class="btn btn-end-turn" id="endTurnBtn" onclick="endTurn()">End Turn</button>
+    <button class="btn btn-new-game" onclick="newGame()">New Game</button>
+  </div>
+
+  <!-- Spymaster indicator banner -->
+  <div class="spymaster-banner" id="spymasterBanner" style="display:none">
+    &#128373; SPYMASTER VIEW — only visible on this device
+  </div>
+
+  <!-- Game Over Overlay -->
+  <div class="overlay" id="overlay" style="display:none">
+    <div class="overlay-content">
+      <div class="overlay-icon" id="overlayIcon"></div>
+      <h2 class="overlay-title" id="overlayTitle"></h2>
+      <p class="overlay-msg" id="overlayMsg"></p>
+      <button class="btn btn-new-game overlay-btn" onclick="newGame()">Play Again</button>
+      <a href="index.html" class="btn btn-secondary overlay-btn">Change Board</a>
+    </div>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>
