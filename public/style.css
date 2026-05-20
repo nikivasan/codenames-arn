@@ -204,6 +204,18 @@ a { text-decoration: none; }
   flex-direction: column;
   align-items: center;
   min-width: 70px;
+  padding: 0.4rem 0.75rem;
+  border-radius: 10px;
+  border: 2px solid transparent;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+.score-red.active {
+  border-color: var(--red-light);
+  box-shadow: 0 0 16px rgba(231, 76, 60, 0.35);
+}
+.score-blue.active {
+  border-color: var(--blue-light);
+  box-shadow: 0 0 16px rgba(41, 128, 185, 0.35);
 }
 
 .score-team {
@@ -260,66 +272,80 @@ a { text-decoration: none; }
   margin-bottom: 0.9rem;
 }
 
-/* Card */
+/* Card — 3D flip container */
 .card {
-  background: var(--card-bg);
-  color: var(--card-text);
+  perspective: 600px;
+  background: transparent;
   border-radius: 8px;
-  padding: 0.5rem 0.4rem;
   min-height: 72px;
+  position: relative;
+  font-size: clamp(0.6rem, 1.4vw, 0.8rem);
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.card:hover:not(.revealed) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+
+.card.revealed { cursor: default; }
+
+/* Inner wrapper — flips on reveal */
+.card-inner {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transition: transform 0.35s ease;
+}
+.card.revealed .card-inner { transform: rotateY(180deg); }
+
+/* Shared face styles */
+.card-front,
+.card-back {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  font-size: clamp(0.6rem, 1.4vw, 0.8rem);
-  font-weight: 600;
-  cursor: pointer;
-  border: 2px solid transparent;
-  transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
-  user-select: none;
+  padding: 0.5rem 0.4rem;
   word-break: break-word;
   hyphens: auto;
   line-height: 1.25;
   letter-spacing: 0.01em;
-  position: relative;
-  overflow: hidden;
+  border: 2px solid transparent;
 }
 
-.card:hover:not(.revealed):not(.game-over-card) {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
-  border-color: rgba(0,0,0,0.15);
+/* Front face — cream default */
+.card-front {
+  background: var(--card-bg);
+  color: var(--card-text);
+  border-color: var(--card-border);
 }
 
-/* Spymaster hints (before reveal) */
-.card.hint-red    { background: #f5d0cc; border-color: #e8a09a; color: #6b1a15; }
-.card.hint-blue   { background: #c8dff4; border-color: #90bcde; color: #0f3a5e; }
-.card.hint-neutral { background: #dce0e0; border-color: #b5bfbf; color: #3a4040; }
-.card.hint-assassin { background: #2d2d2d; border-color: #1a1a1a; color: #aaa; }
+/* Spymaster hints on front face */
+.card.hint-red     .card-front { background: #f5d0cc; border-color: #e8a09a; color: #6b1a15; }
+.card.hint-blue    .card-front { background: #c8dff4; border-color: #90bcde; color: #0f3a5e; }
+.card.hint-neutral .card-front { background: #dce0e0; border-color: #b5bfbf; color: #3a4040; }
+.card.hint-assassin .card-front { background: #2d2d2d; border-color: #111; color: #aaa; }
 
-/* Revealed cards */
-.card.revealed {
-  cursor: default;
-  transform: none !important;
-  border-color: transparent;
+/* Back face — revealed colors */
+.card-back {
+  transform: rotateY(180deg);
+  color: #fff;
 }
-.card.revealed::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 6px;
-}
-.card.red    { background: var(--red);    color: #fff; border-color: var(--red); }
-.card.blue   { background: var(--blue);   color: #fff; border-color: var(--blue); }
-.card.neutral { background: #8a9090; color: #fff; border-color: #6c7878; }
-.card.assassin { background: #1c1c1c; color: #888; border-color: #000; }
+.card.red      .card-back { background: var(--red);  border-color: var(--red); }
+.card.blue     .card-back { background: var(--blue); border-color: var(--blue); }
+.card.neutral  .card-back { background: #8a9090;     border-color: #6c7878; }
+.card.assassin .card-back { background: #1c1c1c;     border-color: #000; color: #888; }
 
-/* "Wrong team revealed" styling to visually mute */
-.card.red.muted    { opacity: 0.75; }
-.card.blue.muted   { opacity: 0.75; }
-
-/* Strikethrough text for revealed */
-.card.revealed .card-word { opacity: 0.85; }
+.card.revealed .card-back .card-word { opacity: 0.9; }
 
 /* Controls */
 .controls {
@@ -361,11 +387,11 @@ a { text-decoration: none; }
   background: rgba(255,255,255,0.08);
   color: rgba(255,255,255,0.8);
   border: 1.5px solid rgba(255,255,255,0.15);
+  transition: transform 0.12s, opacity 0.12s, background 0.25s, border-color 0.25s;
 }
-.btn-end-turn:hover {
-  background: rgba(255,255,255,0.14);
-  color: #fff;
-}
+.btn-end-turn.red  { background: var(--red);  color: #fff; border-color: var(--red);  padding: 0.7rem 2rem; font-size: 0.88rem; }
+.btn-end-turn.blue { background: var(--blue); color: #fff; border-color: var(--blue); padding: 0.7rem 2rem; font-size: 0.88rem; }
+.btn-end-turn:hover { opacity: 0.88; }
 
 .btn-new-game {
   background: rgba(255,255,255,0.06);

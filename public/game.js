@@ -37,14 +37,25 @@
   }
 
   function renderTurnIndicator() {
-    const dot   = document.getElementById('turnDot');
-    const label = document.getElementById('turnLabel');
+    const dot      = document.getElementById('turnDot');
+    const label    = document.getElementById('turnLabel');
+    const redPanel = document.querySelector('.score-red');
+    const bluePanel= document.querySelector('.score-blue');
+    const endBtn   = document.getElementById('endTurnBtn');
+
     if (state.gameOver) {
       dot.className = 'turn-dot';
       label.textContent = 'Game Over';
+      redPanel.classList.remove('active');
+      bluePanel.classList.remove('active');
+      endBtn.classList.remove('red', 'blue');
     } else {
       dot.className = `turn-dot ${state.currentTeam}`;
       label.textContent = `${state.currentTeam.toUpperCase()} Team's Turn`;
+      redPanel.classList.toggle('active', state.currentTeam === 'red');
+      bluePanel.classList.toggle('active', state.currentTeam === 'blue');
+      endBtn.classList.remove('red', 'blue');
+      endBtn.classList.add(state.currentTeam);
     }
   }
 
@@ -66,7 +77,11 @@
         card.classList.add(`hint-${assignment}`);
       }
 
-      card.innerHTML = `<span class="card-word">${word}</span>`;
+      card.innerHTML = `
+        <div class="card-inner">
+          <div class="card-front"><span class="card-word">${word}</span></div>
+          <div class="card-back"><span class="card-word">${word}</span></div>
+        </div>`;
 
       if (!revealed && !state.gameOver) {
         card.addEventListener('click', () => revealCard(i));
