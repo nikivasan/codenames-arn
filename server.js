@@ -18,7 +18,7 @@ const BOARDS = {
   2: [
     'London', 'Om Shanti', 'San Jose', 'Air India', 'Skiing',
     'Tennis', 'Santa Hats', 'Laughing fits', 'Corny', 'Retired',
-    'Masters', 'H1B', 'Specs (Spectacles)', 'Rummy', 'Hijacked',
+    'Masters', 'H1B', 'Specs', 'Rummy', 'Hijacked',
     'Wimbledon', 'Love', 'Travel', 'Chai', 'Bollywood',
     'Chennai', 'Idris Elba', 'SunTV', 'Subaru', 'Scrabble'
   ]
