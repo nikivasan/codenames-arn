@@ -52,7 +52,7 @@ function createGameState(boardNum) {
   const { assignments, firstTeam } = generateAssignments();
   return {
     boardNum,
-    words: BOARDS[boardNum],
+    words: shuffle([...BOARDS[boardNum]]),
     assignments,
     revealed: Array(25).fill(false),
     currentTeam: firstTeam,
