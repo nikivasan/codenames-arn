@@ -14,26 +14,21 @@ Open http://localhost:3000 in your browser.
 
 ## Share with Other Players
 
-### Option A — Same Wi-Fi Network
+### Option A — Localhost (same machine)
+Open http://localhost:3000 after running `npm start`.
+
+### Option B — Official Game (deployed)
+Play online at: **https://codenames-arn.onrender.com/**
+
+### Option C — Same Wi-Fi Network
 Find your local IP (e.g. `192.168.1.x`) and share `http://192.168.1.x:3000`.
 
-### Option B — ngrok (anywhere)
+### Option D — ngrok (anywhere)
 ```bash
 # In a second terminal:
 npx ngrok http 3000
 # Share the https://xxx.ngrok.io URL
 ```
-
-### Option C — Deploy to Render.com (permanent URL)
-
-1. Push this folder to a GitHub repo
-2. Go to https://render.com → New → Web Service
-3. Connect the repo
-4. Set:
-   - **Build command**: `npm install`
-   - **Start command**: `npm start`
-   - **Environment**: Node
-5. Deploy → share the `https://your-app.onrender.com` URL
 
 ## How to Play
 

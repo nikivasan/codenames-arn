@@ -9,11 +9,11 @@ const io = new Server(server);
 
 const BOARDS = {
   1: [
-    'Boiling hot chai', 'Flowers', 'Conspiracy', 'Research', 'Silence',
-    'Listening', 'Taurus', 'Astrology', 'May', 'Trailblazer',
-    'Sagar Enjeti', 'Puns', 'Hummingbirds', 'Devi', 'The Ocean',
-    'Redwoods', 'Red Rocks', 'Travel', 'Reading', 'Bhajans',
-    'Plants', 'Tech oligarchy', 'Nancy Pelosi', 'Photography', 'Tartes de Feybesse'
+    'Chai', 'Spicy pickle', 'Listening', 'Research', 'Silence',
+    'Poet', 'Filmmaker', 'Astrology', 'Broncos', 'Trailblazer',
+    'Sagar Enjeti', 'Puns', 'Hummingbirds', 'Maple', 'The Ocean',
+    'Redwood', 'Red Rocks', 'Travel', 'Rasam', 'Bhajans',
+    'Plants', 'Elon Musk', 'Nancy Pelosi', 'Photography', 'Tamarind'
   ],
   2: [
     'London', 'Om Shanti', 'San Jose', 'Air India', 'Skiing',
